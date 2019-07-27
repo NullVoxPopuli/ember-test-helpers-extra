@@ -8,8 +8,8 @@
   "license": "MIT",
   "private": false,
   "keywords": [
-    "embor",
-    "ember-addon"
+    "ember",
+    "testing"
   ],
   "scripts": {
     "lint:js": "eslint .",
