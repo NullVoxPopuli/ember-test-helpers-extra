@@ -1,0 +1,10 @@
+{
+  "name": "ember-test-helpers-extra",
+  "version": "0.1.0",
+  "description": "Additional test helpers that build upon the primitives in @ember/test-helpers",
+  "main": "index.js",
+  "repository": "https://github.com/NullVoxPopuli/ember-test-helpers-extra",
+  "author": "NullVoxPopuli",
+  "license": "MIT",
+  "private": false
+}
