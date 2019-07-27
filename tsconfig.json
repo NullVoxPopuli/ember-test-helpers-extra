@@ -1,19 +1,30 @@
 {
   "compilerOptions": {
-    "declaration": false,
-    "outDir": "lib",
-    "target": "esnext",
+    "declaration": true,
     "strict": true,
+    "noEmitOnError": false,
+    "target": "esnext",
     "module": "commonjs",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "lib": ["es2018"],
-    "plugins": []
+    "lib": ["es2018", "dom"],
+    "baseUrl": ".",
+    "outDir": "lib",
+    "paths": {
+      "*": [
+        "types/*"
+      ]
+    }
   },
-  "include": ["src"],
+  "include": [
+    "src",
+    "types"
+  ],
   "exclude": [
     ".eslintrc.js",
-    ".prettierrc.js"
+    ".prettierrc.js",
+    "node_modules",
+    "lib"
   ]
 }

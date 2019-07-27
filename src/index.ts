@@ -1,3 +1,3 @@
-export { getService, stubService, setupServiceStub } from './services';
+export { getService, stubService, setupServiceStub } from './helpers/services';
 
-export { refresh } from './refresh';
+export { refresh } from './helpers/refresh';

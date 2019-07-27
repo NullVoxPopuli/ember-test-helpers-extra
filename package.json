@@ -7,11 +7,16 @@
   "author": "NullVoxPopuli",
   "license": "MIT",
   "private": false,
+  "keywords": [
+    "embor",
+    "ember-addon"
+  ],
   "scripts": {
     "lint:js": "eslint .",
     "clean": "rimraf lib",
     "build:js": "babel src --out-dir lib --extensions \".ts\" --source-maps inline",
-    "build": "npx npm-run-all clean build:js"
+    "build:types": "tsc --emitDeclarationOnly",
+    "build": "npx npm-run-all clean build:js build:types"
   },
   "dependencies": {},
   "peerDependencies": {

@@ -1,31 +1,34 @@
 import Service from '@ember/service';
 import { getContext } from '@ember/test-helpers';
+import ApplicationInstance from '@ember/application/instance';
 
-export function getService<T>(name: string): T {
-  const { owner } = getContext();
-
-  const service = owner.lookup<T>(`service:${name}`);
-
-  return service;
+interface Context {
+  owner: ApplicationInstance;
 }
 
-export const stubService = (name: string, hash = {}) => {
+export function getService<T>(name: string): T {
+  const { owner } = getContext() as Context;
+
+  const service = owner.lookup(`service:${name}`);
+
+  return service as T;
+}
+
+export const stubService = (name: string, hash = {}): void => {
   let stubbedService;
 
-  // TODO: need to be able to use an extended service that uses services. :)
+  // TODO: need to be able to use an extended service that uses services.
   if (hash instanceof Function) {
     stubbedService = hash;
   } else {
     stubbedService = Service.extend(hash);
   }
 
-  let { owner } = getContext();
+  let { owner } = getContext() as Context;
   let serviceName = `service:${name}`;
 
   owner.register(serviceName, stubbedService);
 };
-
-export default stubService;
 
 /**
  * Doing a normal service stub will NOT work in a beforeEach
@@ -42,13 +45,13 @@ export default stubService;
 export function setupServiceStub(
   hooks: NestedHooks,
   name: string,
-  stub: Object
-) {
+  stub: Record<string, any>
+): void {
   let serviceName = `service:${name}`;
   let originals: any = {};
 
-  hooks.beforeEach(function() {
-    let { owner } = getContext();
+  hooks.beforeEach(function(): void {
+    let { owner } = getContext() as Context;
     let service = owner.lookup(serviceName);
 
     if (!service) {
@@ -59,20 +62,20 @@ export function setupServiceStub(
 
     let propertiesAndMethods = Object.keys(stub);
 
-    propertiesAndMethods.forEach(key => {
+    propertiesAndMethods.forEach(( key ): void => {
       originals[key] = service[key];
 
       service[key] = stub[key];
     });
   });
 
-  hooks.afterEach(function() {
-    let { owner } = getContext();
+  hooks.afterEach(function(): void {
+    let { owner } = getContext() as Context;
     let service = owner.lookup(serviceName);
 
     let propertiesAndMethods = Object.keys(stub);
 
-    propertiesAndMethods.forEach(key => {
+    propertiesAndMethods.forEach(( key ): void => {
       service[key] = originals[key];
     });
   });
